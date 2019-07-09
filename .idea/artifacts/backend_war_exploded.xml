@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="backend:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/backend_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="backend" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: jackson-databind-2.8.5" />
+          <element id="library" level="project" name="Gradle: scannotation-1.0.3" />
+          <element id="library" level="project" name="Gradle: log4j-1.2.16" />
+          <element id="library" level="project" name="Gradle: jackson-annotations-2.8.0" />
+          <element id="library" level="project" name="Gradle: jackson-core-2.8.5" />
+          <element id="library" level="project" name="Gradle: javassist-3.12.1.GA" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="backend/web/Web" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ToDoTest</string>
+
+    <string-array name="item_list">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </string-array>
+    <string name="title_activity_detail_view">DetailViewActivity</string>
+</resources>
