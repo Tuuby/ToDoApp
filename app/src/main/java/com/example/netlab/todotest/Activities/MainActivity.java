@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.netlab.todotest.Accessors.LoginAccessor;
 import com.example.netlab.todotest.LoginItem;
@@ -22,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         login = ((ToDoApplication)getApplication()).getLoginAccessor();
-
-        final ImageView iconView = findViewById(R.id.imageView);
     }
 
     @Override

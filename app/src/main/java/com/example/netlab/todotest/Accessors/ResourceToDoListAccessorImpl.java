@@ -1,11 +1,9 @@
 package com.example.netlab.todotest.Accessors;
 
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import com.example.netlab.todotest.AbstractActivityProvider;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
 import com.example.netlab.todotest.R;
 import com.example.netlab.todotest.ToDoItem;
-import com.example.netlab.todotest.TodoListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +12,7 @@ import java.util.List;
 public class ResourceToDoListAccessorImpl extends AbstractActivityProvider implements ToDoListAccessor {
 
     private List<ToDoItem> todos;
-    private ArrayAdapter<ToDoItem> adapter;
+    private FavouriteSortableArrayAdapter adapter;
 
     @Override
     public void addItem(ToDoItem item) {
@@ -36,12 +34,12 @@ public class ResourceToDoListAccessorImpl extends AbstractActivityProvider imple
     }
 
     @Override
-    public ListAdapter getAdapter() {
+    public FavouriteSortableArrayAdapter getAdapter() {
         todos = readAllItems();
 
         sortList();
 
-        adapter = TodoListViewAdapter.createDataItemArrayAdapter(getActivity(), todos, this);
+        adapter = FavouriteSortableArrayAdapter.create(getActivity(), todos, this);
 
         return adapter;
     }

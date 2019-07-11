@@ -2,10 +2,9 @@ package com.example.netlab.todotest.Accessors.remote;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import com.example.netlab.todotest.AbstractActivityProvider;
 import com.example.netlab.todotest.Accessors.ToDoListAccessor;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
 import com.example.netlab.todotest.ToDoItem;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class ResteasyToDoItemAccessorImpl extends AbstractActivityProvider imple
     }
 
     @Override
-    public ListAdapter getAdapter() {
+    public FavouriteSortableArrayAdapter getAdapter() {
         return null;
     }
 

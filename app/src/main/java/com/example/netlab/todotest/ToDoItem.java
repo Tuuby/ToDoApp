@@ -20,7 +20,7 @@ public class ToDoItem implements Serializable, Comparable<ToDoItem> {
     private boolean highPriority = false;
     private long deadline;
 
-    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     public void setName(String name) {
         this.name = name;
@@ -95,6 +95,11 @@ public class ToDoItem implements Serializable, Comparable<ToDoItem> {
         this.setDeadline(item.getDeadline());
 
         return this;
+    }
+
+    public String deadlineToString() {
+        Date date = new Date(this.getDeadline());
+        return format.format(date);
     }
 
     public String toString() {

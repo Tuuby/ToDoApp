@@ -2,13 +2,12 @@ package com.example.netlab.todotest.Accessors.room;
 
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.netlab.todotest.AbstractActivityProvider;
 import com.example.netlab.todotest.Accessors.ToDoListAccessor;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
 import com.example.netlab.todotest.ToDoItem;
-import com.example.netlab.todotest.TodoListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class RoomToDoListAccessorImpl extends AbstractActivityProvider implement
 
     private ToDoItemDao mDAO;
     private AppDatabase mAppDB;
-    private ArrayAdapter<ToDoItem> adapter;
+    private FavouriteSortableArrayAdapter adapter;
 
     @Override
     public void setActivity(AppCompatActivity activity) {
@@ -57,10 +56,10 @@ public class RoomToDoListAccessorImpl extends AbstractActivityProvider implement
     }
 
     @Override
-    public ListAdapter getAdapter() {
+    public FavouriteSortableArrayAdapter getAdapter() {
         final List<ToDoItem> todos = new ArrayList<>();
 
-        adapter = TodoListViewAdapter.createDataItemArrayAdapter(getActivity(), todos, this);
+        adapter = FavouriteSortableArrayAdapter.create(getActivity(), todos, this);
 
         new AsyncTask<Void, Void, List<ToDoItem>>() {
             @Override

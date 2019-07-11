@@ -4,6 +4,7 @@ import android.widget.ListAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.netlab.todotest.AbstractActivityProvider;
 import com.example.netlab.todotest.Accessors.ToDoListAccessor;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
 import com.example.netlab.todotest.ToDoApplication;
 import com.example.netlab.todotest.ToDoItem;
 
@@ -41,7 +42,7 @@ public class SharedToDoItemAccessor extends AbstractActivityProvider implements 
     }
 
     @Override
-    public ListAdapter getAdapter() {
+    public FavouriteSortableArrayAdapter getAdapter() {
         return localAccessor.getAdapter();
     }
 

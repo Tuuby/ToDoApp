@@ -2,11 +2,13 @@ package com.example.netlab.todotest.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import com.example.netlab.todotest.R;
 import com.example.netlab.todotest.ToDoItem;
 
@@ -25,6 +27,7 @@ public class DetailViewActivity extends Activity {
         final ToDoItem todo = (ToDoItem) getIntent().getSerializableExtra("selectedTodo");
 
         final Calendar todoCalendar = new GregorianCalendar();
+
         todoCalendar.setTimeInMillis(todo.getDeadline());
 
         final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -81,13 +84,25 @@ public class DetailViewActivity extends Activity {
             }
         });
 
+        final AlertDialog deleteAlertDialog = new AlertDialog.Builder(this)
+                .setTitle("Delete?")
+                .setMessage("Do you really want to delete this ToDo?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent();
+                        i.putExtra("selectedTodo", todo);
+                        setResult(RESULT_DELETE, i);
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .create();
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
-                i.putExtra("selectedTodo", todo);
-                setResult(RESULT_DELETE, i);
-                finish();
+                deleteAlertDialog.show();
             }
         });
     }

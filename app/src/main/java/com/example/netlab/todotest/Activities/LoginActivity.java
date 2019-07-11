@@ -2,8 +2,11 @@ package com.example.netlab.todotest.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,17 +17,18 @@ import android.util.Patterns;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.netlab.todotest.AbstractActivityProvider;
 import com.example.netlab.todotest.Accessors.LoginAccessor;
-import com.example.netlab.todotest.Accessors.remote.ResteasyLoginItemAccessorImpl;
 import com.example.netlab.todotest.LoginItem;
 import com.example.netlab.todotest.R;
 import com.example.netlab.todotest.ToDoApplication;
 
+import static android.view.View.VISIBLE;
+
 public class LoginActivity extends AppCompatActivity {
 
-    boolean emailChecked = false;
-    boolean passwortChecked = false;
-    String password = "";
-    String email = "";
+    private boolean emailChecked = false;
+    private boolean passwortChecked = false;
+    private String password = "";
+    private String email = "";
 
     private ToDoApplication application;
     private LoginAccessor loginAccessor;
@@ -46,18 +50,20 @@ public class LoginActivity extends AppCompatActivity {
                     authorized = loginAccessor.login(new LoginItem(email, password));
                     application.syncAccessors();
                 } catch (Throwable t) {
-                    Log.d("LoginActivity", "hooo fuggg we offline boiys");
+                    Log.d("LoginActivity", "webservice not available");
                 }
                 return "test";
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                dialog.cancel();
                 if (authorized) {
                     startActivity(new Intent(LoginActivity.this, TodoActivity.class));
+                    dialog.cancel();
+                    finish();
                 } else {
-                    loginErrorView.setVisibility(View.VISIBLE);
+                    loginErrorView.setVisibility(VISIBLE);
+                    dialog.cancel();
                 }
             }
         };
@@ -87,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         emailChecked = false;
-                        feedbackTextView.setVisibility(View.VISIBLE);
+                        feedbackTextView.setVisibility(VISIBLE);
                     } else {
                         emailChecked = true;
                         if (passwortChecked) {
@@ -99,6 +105,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        emailEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                feedbackTextView.setVisibility(View.GONE);
+                loginErrorView.setVisibility(View.GONE);
+            }
+        });
+
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -107,20 +131,29 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        passwordEdit.setOnKeyListener(new TextView.OnKeyListener() {
+        passwordEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                password = passwordEdit.getText().toString();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                password = s.toString();
                 if (password.length() == 6) {
                     passwortChecked = true;
                     if(emailChecked) {
                         loginButton.setEnabled(true);
                     }
-                    return true;
                 } else {
                     passwortChecked = false;
-                    return false;
                 }
+                loginErrorView.setVisibility(View.GONE);
             }
         });
 

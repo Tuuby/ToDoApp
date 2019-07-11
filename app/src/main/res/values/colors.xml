@@ -7,5 +7,6 @@
     <color name="secondaryLightColor">#5472d3</color>
     <color name="secondaryDarkColor">#002171</color>
     <color name="primaryTextColor">#000000</color>
+    <color name="defaultDateColor">#808080</color>
     <color name="secondaryTextColor">#ffffff</color>
 </resources>

@@ -1,7 +1,7 @@
 package com.example.netlab.todotest.Accessors;
 
-import android.widget.ListAdapter;
-        import com.example.netlab.todotest.ToDoItem;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
+import com.example.netlab.todotest.ToDoItem;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface ToDoListAccessor {
 
     List<ToDoItem> readAllItems();
 
-    ListAdapter getAdapter();
+    FavouriteSortableArrayAdapter getAdapter();
 
     void updateItem(ToDoItem item);
 

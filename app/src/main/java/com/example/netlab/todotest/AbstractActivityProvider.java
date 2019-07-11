@@ -2,7 +2,7 @@ package com.example.netlab.todotest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AbstractActivityProvider {
+public abstract class AbstractActivityProvider {
 
     private AppCompatActivity activity;
 

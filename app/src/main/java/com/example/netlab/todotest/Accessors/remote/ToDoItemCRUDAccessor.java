@@ -12,15 +12,15 @@ import java.util.List;
 public interface ToDoItemCRUDAccessor {
 	
 	@GET
-	public List<ToDoItem> readAllItems();
+	List<ToDoItem> readAllItems();
 	
 	@POST
-	public ToDoItem createItem(ToDoItem item);
+	ToDoItem createItem(ToDoItem item);
 
 	@DELETE
 	@Path("/{itemId}")
-	public boolean deleteItem(@PathParam("itemId") long itemId);
+	boolean deleteItem(@PathParam("itemId") long itemId);
 
 	@PUT
-	public ToDoItem updateItem(ToDoItem item);
+	ToDoItem updateItem(ToDoItem item);
 }

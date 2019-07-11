@@ -3,24 +3,16 @@ package com.example.netlab.todotest.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.netlab.todotest.AbstractActivityProvider;
-import com.example.netlab.todotest.Accessors.ToDoListAccessor;
-import com.example.netlab.todotest.Accessors.remote.ResteasyToDoItemAccessorImpl;
-import com.example.netlab.todotest.Accessors.room.RoomToDoListAccessorImpl;
-import com.example.netlab.todotest.Accessors.shared.SharedToDoItemAccessor;
+import com.example.netlab.todotest.Adapters.FavouriteSortableArrayAdapter;
 import com.example.netlab.todotest.R;
 import com.example.netlab.todotest.ToDoApplication;
 import com.example.netlab.todotest.ToDoItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TodoActivity extends AppCompatActivity {
 
@@ -33,6 +25,7 @@ public class TodoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do);
+
         final FloatingActionButton addButton = findViewById(R.id.addButton);
         final Switch prioritySwitch = findViewById(R.id.prioritySwitch);
         final ListView todoList = findViewById(R.id.todoList);
@@ -40,18 +33,20 @@ public class TodoActivity extends AppCompatActivity {
         application = (ToDoApplication) getApplication();
 
         if (application.isOffline()) {
-            Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Webservice not available.", Toast.LENGTH_LONG).show();
         }
 
         ((AbstractActivityProvider) application.getSharedAccessor()).setActivity(this);
 
+        final FavouriteSortableArrayAdapter adapter = application.getSharedAccessor().getAdapter();
 
-        todoList.setAdapter(application.getSharedAccessor().getAdapter());
+        todoList.setAdapter(adapter);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ToDoItem item = new ToDoItem();
+                item.setDeadline(System.currentTimeMillis());
                 goToDetail(item, CREATE_TODO);
             }
         });
@@ -61,6 +56,14 @@ public class TodoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ToDoItem todo = (ToDoItem) todoList.getItemAtPosition(position);
                 goToDetail(todo, EDIT_TODO);
+            }
+        });
+
+        prioritySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                adapter.setFavouriteFirst(isChecked);
+                adapter.notifyDataSetChanged();
             }
         });
 

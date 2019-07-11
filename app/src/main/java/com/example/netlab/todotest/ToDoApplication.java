@@ -1,7 +1,6 @@
 package com.example.netlab.todotest;
 
 import android.app.Application;
-import android.util.Log;
 import com.example.netlab.todotest.Accessors.LoginAccessor;
 import com.example.netlab.todotest.Accessors.ToDoListAccessor;
 import com.example.netlab.todotest.Accessors.remote.ResteasyLoginItemAccessorImpl;
